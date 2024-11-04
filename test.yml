@@ -1,9 +1,9 @@
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-      name: nginx
+      name: web-dp
     spec:
-      replicas: 1
+      replicas: 3
       selector:
         matchLabels:
           app: myapp
@@ -13,7 +13,20 @@
             app: myapp
         spec:
           containers:
-          - name: nginx
+          - name: web-ctn
             image: ilovesnows/test:first
             ports:
             - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-lb
+spec:
+  selector:
+    app: myapp
+  ports:
+  - port: 80
+    targetPort: 80
+    type: LoadBlancer
