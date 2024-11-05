@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keduit-wonjune
+  labels:
+    app: myapp
+    key: value
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      color: blue           # 이러한 key: value를 갖는 Pod를 3개 유지
+  template:                 # 실질적인 Pod의 구성 정보
+    metadata:
+      labels:
+        color: blue
+    spec:
+      containers:
+        - name: keduit-ctn
+          image: ilovesnows/keduitlab:blue
+          ports:
+            - containerPort: 80
